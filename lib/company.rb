@@ -23,7 +23,6 @@ class Company
   def load_employees(filename)
     attributes = find_attributes(filename)
     attributes.each do |attribute|
-      require "pry"; binding.pry
       if attribute.any? { |element| element.nil? } || attribute.length < 5
         @employees << failure_key
       else
@@ -33,6 +32,22 @@ class Company
                         role: attribute[2],
                         start_date: attribute[3],
                         end_date: attribute[4]
+                      }
+      end
+    end
+  end
+
+  def load_projects(filename)
+    attributes = find_attributes(filename)
+    attributes.each do |attribute|
+      if attribute.any? { |element| element.nil? } || attribute.length < 4
+        @projects << failure_key
+      else
+        @projects << { success_key: success_key,
+                        project_id: attribute[0],
+                        name: attribute[1],
+                        start_date: attribute[2],
+                        end_date: attribute[3]
                       }
       end
     end
