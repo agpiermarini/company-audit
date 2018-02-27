@@ -6,7 +6,7 @@ class Employee
     @id = id.to_i
     @name = name
     @role = role
-    @start_date = Date.new(start_date)
-    @end_date = Date.new(end_date)
+    @start_date = DateHandler.string_to_date(start_date)
+    @end_date = DateHandler.string_to_date(end_date)
   end
 end
