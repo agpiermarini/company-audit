@@ -56,7 +56,7 @@ class Company
   def load_timesheets(filename)
     attributes = find_attributes(filename)
     attributes.each do |attribute|
-      if attribute.any? { |element| element == nil? } || attribute.length < 4
+      if attribute.any? { |element| element.nil? } || attribute.length < 4
         @timesheets << failure_key
       else
         @timesheets << { success_key: success_key,
