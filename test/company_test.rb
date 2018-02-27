@@ -27,4 +27,17 @@ class CompanyTest < Minitest::Test
     assert_equal 2, company.employees.size
     assert_instance_of Hash, company.employees.first
   end
+
+  def test_it_can_detect_bad_data
+    company = Company.new
+    filename = './data/bad_employees.csv'
+    bad_data = { success: false, error: 'bad data' }
+
+    assert_equal [], company.employees
+
+    company.load_employees(filename)
+    assert_equal 2, company.employees.size
+    assert_equal bad_data, company.employees.first
+    assert_equal bad_data, company.employees.last
+  end
 end

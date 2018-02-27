@@ -12,16 +12,29 @@ class Company
     CSV.readlines(filename)
   end
 
+  def success_key
+    { success: true, error: nil }
+  end
+
+  def failure_key
+    { success: false, error: 'bad data'}
+  end
+
   def load_employees(filename)
-    find_attributes(filename).each do |attribute, _nil|
-    @employees << { success: nil,
-                    error: nil,
-                    employee_id: attribute[0],
-                    name: attribute[1],
-                    role: attribute[2],
-                    start_date: attribute[3],
-                    end_date: attribute[4]
-                  }
+    attributes = find_attributes(filename)
+    attributes.each do |attribute|
+      require "pry"; binding.pry
+      if attribute.any? { |element| element.nil? } || attribute.length < 5
+        @employees << failure_key
+      else
+        @employees << { success_key: success_key,
+                        employee_id: attribute[0],
+                        name: attribute[1],
+                        role: attribute[2],
+                        start_date: attribute[3],
+                        end_date: attribute[4]
+                      }
+      end
     end
   end
 end
