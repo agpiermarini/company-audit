@@ -20,6 +20,11 @@ class CompanyTest < Minitest::Test
   def test_it_can_load_employees
     company = Company.new
     filename = './data/employees.csv'
+
+    assert_equal [], company.employees
+
     company.load_employees(filename)
+    assert_equal 2, company.employees.size
+    assert_instance_of Hash, company.employees.first
   end
 end
