@@ -96,4 +96,14 @@ class CompanyTest < Minitest::Test
     assert_instance_of Employee, company.find_employee_by_id(1)
     assert_instance_of Employee, company.find_employee_by_id(2)
   end
+
+  def test_it_can_find_project_by_id
+    company = Company.new
+    filename = './data/projects.csv'
+    company.load_projects(filename)
+
+    assert_instance_of Project, company.find_project_by_id(1)
+    assert_instance_of Project, company.find_project_by_id(2)
+    assert_instance_of Project, company.find_project_by_id(3)
+  end
 end
