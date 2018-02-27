@@ -24,15 +24,15 @@ class Company
     attributes = find_attributes(filename)
     attributes.each do |attribute|
       if attribute.any? { |element| element.nil? } || attribute.length < 5
-        @employees << failure_key
+        failure_key
       else
-        @employees << { success_key: success_key,
-                        employee_id: attribute[0],
+        @employees << { employee_id: attribute[0],
                         name: attribute[1],
                         role: attribute[2],
                         start_date: attribute[3],
                         end_date: attribute[4]
                       }
+        success_key
       end
     end
   end
@@ -41,14 +41,14 @@ class Company
     attributes = find_attributes(filename)
     attributes.each do |attribute|
       if attribute.any? { |element| element == nil? } || attribute.length < 4
-        @projects << failure_key
+        failure_key
       else
-        @projects << { success_key: success_key,
-                        project_id: attribute[0],
+        @projects << {  project_id: attribute[0],
                         name: attribute[1],
                         start_date: attribute[2],
                         end_date: attribute[3]
                       }
+        success_key
       end
     end
   end
@@ -57,14 +57,14 @@ class Company
     attributes = find_attributes(filename)
     attributes.each do |attribute|
       if attribute.any? { |element| element.nil? } || attribute.length < 4
-        @timesheets << failure_key
+        failure_key
       else
-        @timesheets << { success_key: success_key,
-                        employee_id: attribute[0],
-                        project_id: attribute[1],
-                        date: attribute[2],
-                        minutes: attribute[3]
+        @timesheets << { employee_id: attribute[0],
+                         project_id: attribute[1],
+                         date: attribute[2],
+                         minutes: attribute[3]
                       }
+        success_key
       end
     end
   end
