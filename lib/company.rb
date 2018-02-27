@@ -69,10 +69,9 @@ class Company
     end
     success_key
   end
-end
 
-# @employees << Employee.new(employee_id:      attribute[0],
-#                           name:             attribute[1],
-#                           role:             attribute[2],
-#                           start_date:       attribute[3],
-#                           end_date:         attribute[4])
+  def find_employee_by_id(id)
+    require "pry"; binding.pry
+    @employees.find { |employee| employee.id == id }
+  end
+end

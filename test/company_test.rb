@@ -87,4 +87,13 @@ class CompanyTest < Minitest::Test
 
     assert_equal bad_data, company.load_timesheets(filename)
   end
+
+  def test_it_can_find_employee_by_id
+    company = Company.new
+    filename = './data/employees.csv'
+    company.load_employees(filename)
+
+    assert_instance_of Employee, company.find_employee_by_id(1)
+    assert_instance_of Employee, company.find_employee_by_id(2)
+  end
 end
