@@ -65,4 +65,27 @@ class CompanyTest < Minitest::Test
     assert_equal bad_data, company.projects[1]
     refute_equal bad_data, company.projects[2]
   end
+
+  def test_it_can_load_timesheets
+    company = Company.new
+    filename = './data/timesheets.csv'
+
+    assert_equal [], company.employees
+
+    company.load_timesheets(filename)
+    assert_equal 25, company.timesheets.size
+    assert_instance_of Hash, company.timesheets.first
+  end
+
+  def test_it_can_detect_bad_timesheet_data
+    company = Company.new
+    filename = './data/bad_timesheets.csv'
+    bad_data = { success: false, error: 'bad data' }
+
+    assert_equal [], company.timesheets
+
+    company.load_timesheets(filename)
+    assert_equal 24, company.timesheets.size
+    assert_equal bad_data, company.timesheets[4]
+  end
 end

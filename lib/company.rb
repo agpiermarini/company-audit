@@ -40,7 +40,7 @@ class Company
   def load_projects(filename)
     attributes = find_attributes(filename)
     attributes.each do |attribute|
-      if attribute.any? { |element| element.nil? } || attribute.length < 4
+      if attribute.any? { |element| element == nil? } || attribute.length < 4
         @projects << failure_key
       else
         @projects << { success_key: success_key,
@@ -48,6 +48,22 @@ class Company
                         name: attribute[1],
                         start_date: attribute[2],
                         end_date: attribute[3]
+                      }
+      end
+    end
+  end
+
+  def load_timesheets(filename)
+    attributes = find_attributes(filename)
+    attributes.each do |attribute|
+      if attribute.any? { |element| element == nil? } || attribute.length < 4
+        @timesheets << failure_key
+      else
+        @timesheets << { success_key: success_key,
+                        employee_id: attribute[0],
+                        project_id: attribute[1],
+                        date: attribute[2],
+                        minutes: attribute[3]
                       }
       end
     end
