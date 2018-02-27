@@ -26,7 +26,7 @@ class CompanyTest < Minitest::Test
 
     company.load_employees(filename)
     assert_equal 2, company.employees.size
-    assert_instance_of Hash, company.employees.first
+    assert_instance_of Employee, company.employees.first
     assert_equal success_key, company.load_employees(filename)
 
   end
@@ -51,7 +51,7 @@ class CompanyTest < Minitest::Test
 
     company.load_projects(filename)
     assert_equal 3, company.projects.size
-    assert_instance_of Hash, company.projects.first
+    assert_instance_of Project, company.projects.first
     assert_equal success_key, company.load_projects(filename)
   end
 
@@ -74,7 +74,7 @@ class CompanyTest < Minitest::Test
 
     company.load_timesheets(filename)
     assert_equal 25, company.timesheets.size
-    assert_instance_of Hash, company.timesheets.first
+    assert_instance_of Timesheet, company.timesheets.first
     assert_equal success_key, company.load_timesheets(filename)
   end
 
