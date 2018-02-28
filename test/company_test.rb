@@ -125,15 +125,15 @@ class CompanyTest < Minitest::Test
     assert company.project_id_invalid?(100)
   end
 
-  def test_bill_during_project_date_method
+  def test_bill_outside_project_date_method
     company = Company.new
     filename = './data/projects.csv'
     company.load_projects(filename)
     date_1 = DateHandler.string_to_date("2015-01-01")
     date_2 = DateHandler.string_to_date("2016-02-01")
 
-    refute company.bill_during_project_date?(date_1, 1)
-    assert company.bill_during_project_date?(date_2, 1)
+    assert company.bill_outside_project_date?(date_1, 1)
+    refute company.bill_outside_project_date?(date_2, 1)
   end
 
   def test_during_week?

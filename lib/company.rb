@@ -86,10 +86,10 @@ class Company
     !@projects.any? { |project| project.project_id == id }
   end
 
-  def bill_during_project_date?(date, project_id)
+  def bill_outside_project_date?(date, project_id)
     dh = DateHandler::DHDate.new(date)
     project = @projects.find { |project| project.project_id == project_id }
-    dh.date_between(project.start_date, project.end_date)
+    !dh.date_between(project.start_date, project.end_date)
   end
 
   def work_during_week?(date)
