@@ -106,4 +106,13 @@ class CompanyTest < Minitest::Test
     assert_instance_of Project, company.find_project_by_id(2)
     assert_instance_of Project, company.find_project_by_id(3)
   end
+
+  def test_timesheet_valid_id_method
+    company = Company.new
+    filename = './data/employees.csv'
+    company.load_employees(filename)
+
+    assert company.timesheet_valid_id?(1)
+    refute company.timesheet_valid_id?(100)
+  end
 end

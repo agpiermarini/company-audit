@@ -1,7 +1,6 @@
 require 'date'
 require './modules/date_handler'
 require './test/test_helper'
-# require './lib/company'
 require './lib/audit'
 
 class AuditTest < Minitest::Test
@@ -37,4 +36,19 @@ class AuditTest < Minitest::Test
     audit.load_company(company)
     assert_instance_of Company, audit.company
   end
+
+  # def test_if_timesheet_employee_id_valid
+  #   audit = Audit.new
+  #   company = Company.new
+  #   file = { employees: './data/employees.csv',
+  #             projects: './data/projects.csv',
+  #             timesheets: './data/timesheets.csv'}
+  #   company.load_employees(file[:employees])
+  #   company.load_projects(file[:projects])
+  #   company.load_timesheets(file[:timesheets])
+  #   success_key = {:success=>true, :error=>nil}
+  #   audit.load_company(company)
+  #
+  #   assert company.timesheet_valid_id?
+  # end
 end
