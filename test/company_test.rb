@@ -106,4 +106,42 @@ class CompanyTest < Minitest::Test
     assert_instance_of Project, company.find_project_by_id(2)
     assert_instance_of Project, company.find_project_by_id(3)
   end
+
+  def test_employee_id_invalid_method
+    company = Company.new
+    filename = './data/employees.csv'
+    company.load_employees(filename)
+
+    refute company.employee_id_invalid?(1)
+    assert company.employee_id_invalid?(100)
+  end
+
+  def test_project_id_invalid_method
+    company = Company.new
+    filename = './data/projects.csv'
+    company.load_projects(filename)
+
+    refute company.project_id_invalid?(1)
+    assert company.project_id_invalid?(100)
+  end
+
+  def test_bill_outside_project_date_method
+    company = Company.new
+    filename = './data/projects.csv'
+    company.load_projects(filename)
+    date_1 = DateHandler.string_to_date("2015-01-01")
+    date_2 = DateHandler.string_to_date("2016-02-01")
+
+    assert company.bill_outside_project_date?(date_1, 1)
+    refute company.bill_outside_project_date?(date_2, 1)
+  end
+
+  def test_during_week?
+    company = Company.new
+    date_1 = DateHandler.string_to_date("2018-02-02")
+    date_2 = DateHandler.string_to_date("2018-02-03")
+
+    assert company.work_during_week?(date_1)
+    refute company.work_during_week?(date_2)
+  end
 end

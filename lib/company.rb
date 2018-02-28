@@ -78,4 +78,22 @@ class Company
     @projects.find { |project| project.project_id == id }
   end
 
+  def employee_id_invalid?(id)
+    !@employees.any? { |employee| employee.id == id }
+  end
+
+  def project_id_invalid?(id)
+    !@projects.any? { |project| project.project_id == id }
+  end
+
+  def bill_outside_project_date?(date, project_id)
+    dh = DateHandler::DHDate.new(date)
+    project = @projects.find { |project| project.project_id == project_id }
+    !dh.date_between(project.start_date, project.end_date)
+  end
+
+  def work_during_week?(date)
+    bool = [date.saturday?, date.sunday?]
+    bool.each { |check| return false if check == true }
+  end
 end
