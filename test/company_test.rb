@@ -112,7 +112,16 @@ class CompanyTest < Minitest::Test
     filename = './data/employees.csv'
     company.load_employees(filename)
 
-    assert company.timesheet_valid_id?(1)
-    refute company.timesheet_valid_id?(100)
+    assert company.timesheet_id_valid?(1)
+    refute company.timesheet_id_valid?(100)
+  end
+
+  def test_project_valid_id_method
+    company = Company.new
+    filename = './data/projects.csv'
+    company.load_projects(filename)
+
+    assert company.project_id_valid?(1)
+    refute company.project_id_valid?(100)
   end
 end

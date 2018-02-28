@@ -78,7 +78,11 @@ class Company
     @projects.find { |project| project.project_id == id }
   end
 
-  def timesheet_valid_id?(id)
+  def timesheet_id_valid?(id)
     @employees.any? { |employee| employee.id == id }
+  end
+
+  def project_id_valid?(id)
+    @projects.any? { |project| project.project_id == id }
   end
 end
