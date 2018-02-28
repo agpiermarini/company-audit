@@ -107,37 +107,41 @@ class CompanyTest < Minitest::Test
     assert_instance_of Project, company.find_project_by_id(3)
   end
 
-  def test_timesheet_valid_id_method
+  def test_employee_id_invalid_method
     company = Company.new
     filename = './data/employees.csv'
     company.load_employees(filename)
 
-    assert company.timesheet_id_valid?(1)
-    refute company.timesheet_id_valid?(100)
+    refute company.employee_id_invalid?(1)
+    assert company.employee_id_invalid?(100)
   end
 
-  def test_project_valid_id_method
+  def test_project_id_invalid_method
     company = Company.new
     filename = './data/projects.csv'
     company.load_projects(filename)
 
-    assert company.project_id_valid?(1)
-    refute company.project_id_valid?(100)
+    refute company.project_id_invalid?(1)
+    assert company.project_id_invalid?(100)
   end
 
   def test_bill_during_project_date_method
     company = Company.new
     filename = './data/projects.csv'
     company.load_projects(filename)
+    date_1 = DateHandler.string_to_date("2015-01-01")
+    date_2 = DateHandler.string_to_date("2016-02-01")
 
-    refute company.bill_during_project_date?("2015-01-01", 1)
-    assert company.bill_during_project_date?("2016-02-01", 1)
+    refute company.bill_during_project_date?(date_1, 1)
+    assert company.bill_during_project_date?(date_2, 1)
   end
 
   def test_during_week?
     company = Company.new
+    date_1 = DateHandler.string_to_date("2018-02-02")
+    date_2 = DateHandler.string_to_date("2018-02-03")
 
-    assert company.work_during_week?("2018-02-02")
-    refute company.work_during_week?("2018-02-03")
+    assert company.work_during_week?(date_1)
+    refute company.work_during_week?(date_2)
   end
 end

@@ -9,6 +9,22 @@ class Audit
   def load_company(company)
     @company = company
   end
+
+  def run_report(employee_id, project_id, date)
+    employee = company.find_employee_by_id(employee_id)
+    project = company.find_project_by_id(project_id)
+    if company.employee_id_invalid?(employee_id)
+      "A timesheet was submitted for #{project.name} under an invalid employee ID"
+    elsif company.project_id_invalid?(project_id)
+      "#{employee.name} submitted a timesheet on #{date} for an invalid project"
+    elsif company.bill_during_project_date?(date, project_id)
+      "#{employee.name} worked on #{project.name} on #{date}, it was outside of project dates"
+    elsif company.work_during_week?(date)
+      "#{employee.name} worked on #{project.name} on #{date}, it was a weekend"
+    else
+      "None"
+    end
+  end
 end
 
 #### audit.were_invalid_days_worked

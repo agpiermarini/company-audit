@@ -78,24 +78,22 @@ class Company
     @projects.find { |project| project.project_id == id }
   end
 
-  def timesheet_id_valid?(id)
-    @employees.any? { |employee| employee.id == id }
+  def employee_id_invalid?(id)
+    !@employees.any? { |employee| employee.id == id }
   end
 
-  def project_id_valid?(id)
-    @projects.any? { |project| project.project_id == id }
+  def project_id_invalid?(id)
+    !@projects.any? { |project| project.project_id == id }
   end
 
   def bill_during_project_date?(date, project_id)
-    date_billed = DateHandler.string_to_date(date)
-    dh = DateHandler::DHDate.new(date_billed)
+    dh = DateHandler::DHDate.new(date)
     project = @projects.find { |project| project.project_id == project_id }
     dh.date_between(project.start_date, project.end_date)
   end
 
   def work_during_week?(date)
-    date_billed = DateHandler.string_to_date(date)
-    bool = [date_billed.saturday?, date_billed.sunday?]
+    bool = [date.saturday?, date.sunday?]
     bool.each { |check| return false if check == true }
   end
 end
