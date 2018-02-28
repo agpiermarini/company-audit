@@ -77,5 +77,4 @@ class Company
   def find_project_by_id(id)
     @projects.find { |project| project.project_id == id }
   end
-
 end
