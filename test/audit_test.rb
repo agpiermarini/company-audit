@@ -66,10 +66,11 @@ class AuditTest < Minitest::Test
       company.load_timesheets(file[:timesheets])
       audit.load_company(company)
 
+      reports = audit.were_invalid_days_worked.join(" ")
       invalid_report_1 = "John Smith worked on Acme Project on 2017-06-03, it was a weekend"
       invalid_report_2 = "A timesheet was submitted for Acme Project under an invalid employee ID"
 
-      assert audit.were_invalid_days_worked.join(" ").include?(invalid_report_1)
-      assert audit.were_invalid_days_worked.join(" ").include?(invalid_report_2)
+      assert reports.include?(invalid_report_1)
+      assert reports.include?(invalid_report_2)
   end
 end
