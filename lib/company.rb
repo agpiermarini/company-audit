@@ -92,8 +92,8 @@ class Company
     !dh.date_between(project.start_date, project.end_date)
   end
 
-  def work_during_week?(date)
+  def work_during_weekend?(date)
     bool = [date.saturday?, date.sunday?]
-    bool.each { |check| return false if check == true }
+    bool.any? { |check| check == true }
   end
 end

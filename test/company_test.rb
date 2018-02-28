@@ -136,12 +136,12 @@ class CompanyTest < Minitest::Test
     refute company.bill_outside_project_date?(date_2, 1)
   end
 
-  def test_during_week?
+  def test_during_weekend?
     company = Company.new
     date_1 = DateHandler.string_to_date("2018-02-02")
     date_2 = DateHandler.string_to_date("2018-02-03")
 
-    assert company.work_during_week?(date_1)
-    refute company.work_during_week?(date_2)
+    refute company.work_during_weekend?(date_1)
+    assert company.work_during_weekend?(date_2)
   end
 end
