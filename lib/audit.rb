@@ -19,7 +19,7 @@ class Audit
       "#{employee.name} submitted a timesheet on #{date} for an invalid project"
     elsif company.bill_outside_project_date?(date, project_id)
       "#{employee.name} worked on #{project.name} on #{date}, it was outside of project dates"
-    elsif !company.work_during_week?(date)
+    elsif company.work_during_weekend?(date)
       "#{employee.name} worked on #{project.name} on #{date}, it was a weekend"
     else
       nil
