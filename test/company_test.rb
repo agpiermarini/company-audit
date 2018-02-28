@@ -133,4 +133,11 @@ class CompanyTest < Minitest::Test
     refute company.bill_during_project_date?("2015-01-01", 1)
     assert company.bill_during_project_date?("2016-02-01", 1)
   end
+
+  def test_during_week?
+    company = Company.new
+
+    assert company.work_during_week?("2018-02-02")
+    refute company.work_during_week?("2018-02-03")
+  end
 end

@@ -92,4 +92,10 @@ class Company
     project = @projects.find { |project| project.project_id == project_id }
     dh.date_between(project.start_date, project.end_date)
   end
+
+  def work_during_week?(date)
+    date_billed = DateHandler.string_to_date(date)
+    bool = [date_billed.saturday?, date_billed.sunday?]
+    bool.each { |check| return false if check == true }
+  end
 end
