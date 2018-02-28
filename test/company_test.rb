@@ -124,4 +124,13 @@ class CompanyTest < Minitest::Test
     assert company.project_id_valid?(1)
     refute company.project_id_valid?(100)
   end
+
+  def test_bill_during_project_date_method
+    company = Company.new
+    filename = './data/projects.csv'
+    company.load_projects(filename)
+
+    refute company.bill_during_project_date?("2015-01-01", 1)
+    assert company.bill_during_project_date?("2016-02-01", 1)
+  end
 end

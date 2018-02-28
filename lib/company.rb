@@ -85,4 +85,11 @@ class Company
   def project_id_valid?(id)
     @projects.any? { |project| project.project_id == id }
   end
+
+  def bill_during_project_date?(date, project_id)
+    date_billed = DateHandler.string_to_date(date)
+    dh = DateHandler::DHDate.new(date_billed)
+    project = @projects.find { |project| project.project_id == project_id }
+    dh.date_between(project.start_date, project.end_date)
+  end
 end
